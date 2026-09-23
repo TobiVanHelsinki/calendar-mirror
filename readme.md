@@ -97,8 +97,10 @@ All log lines of the add-on start with `[calmirror]`. See them in Thunderbird vi
 
 ## Development
 
-The add-on lives in `addon/`. `experiments/calendar/` is an unmodified copy of the Calendar Experiment from
-[webext-experiments](https://github.com/thunderbird/webext-experiments) (MPL-2.0); do not edit it.
+The add-on lives in `addon/`. `addon/experiments/calendar/` is third-party code: an unmodified copy of the
+Calendar Experiment from [webext-experiments](https://github.com/thunderbird/webext-experiments) (MPL-2.0).
+Do not edit it. To update it, replace the folder with the newer upstream version and update the version
+and commit in [`addon/THIRD-PARTY-NOTICES.md`](addon/THIRD-PARTY-NOTICES.md).
 
 - **Test:** Thunderbird → *Debug Add-ons* → *Load Temporary Add-on…* → `addon/manifest.json`
 - **Build:** `pwsh ./build.ps1` creates `dist/calmirror-<version>.xpi`
@@ -116,6 +118,7 @@ Console output then ends up in `%TEMP%\tb-out.log` and `%TEMP%\tb-err.log`.
 
 ## License
 
-The Calendar Experiment in `addon/experiments/` is licensed under the
-[Mozilla Public License 2.0](https://www.mozilla.org/MPL/2.0/). License for the rest of the add-on: to be
+The Calendar Experiment in `addon/experiments/` is third-party code by Philipp Kewisch and the Thunderbird
+contributors, licensed under the [Mozilla Public License 2.0](https://www.mozilla.org/MPL/2.0/); see
+[`addon/THIRD-PARTY-NOTICES.md`](addon/THIRD-PARTY-NOTICES.md). License for the rest of the add-on: to be
 decided.

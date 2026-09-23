@@ -45,7 +45,8 @@ addon/                    the add-on (load addon/manifest.json as temporary add-
   options/                options page (open_in_tab), shows status, "Sync now", About + changelog
   CHANGELOG.md            shown on the options page; also the release notes
   icons/calmirror.svg     logo (calendar + mirrored copy + one-way arrow)
-  experiments/calendar/   UNMODIFIED copy of the Calendar Experiment (MPL-2.0) – never edit
+  experiments/calendar/   third-party: UNMODIFIED copy of the Calendar Experiment (MPL-2.0) – never edit
+  THIRD-PARTY-NOTICES.md  origin, upstream version/commit and license of experiments/ (update when replacing it)
 build.ps1                 packs addon/ into dist/calmirror-<version>.xpi (uses "/" paths, not Compress-Archive)
 readme.md                 user-facing README (planned GitHub README / ATN description)
 ```
