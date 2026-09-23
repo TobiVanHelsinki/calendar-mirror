@@ -1,0 +1,10 @@
+# Build output (published as GitHub release assets instead)
+dist/
+*.xpi
+
+# Editor and OS files
+.vscode/
+*.code-workspace
+Thumbs.db
+Desktop.ini
+.DS_Store

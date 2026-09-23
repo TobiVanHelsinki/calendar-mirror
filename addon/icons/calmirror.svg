@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <title>Calendar Mirror</title>
+
+  <!-- Source: calendar page -->
+  <rect x="4" y="16" width="24" height="30" rx="4" fill="#ffffff"/>
+  <path d="M4 20a4 4 0 0 1 4-4h16a4 4 0 0 1 4 4v4H4z" fill="#1f5fbf"/>
+  <rect x="4" y="16" width="24" height="30" rx="4" fill="none" stroke="#1f5fbf" stroke-width="2"/>
+  <rect x="9" y="12" width="3" height="7" rx="1.5" fill="#12408a"/>
+  <rect x="20" y="12" width="3" height="7" rx="1.5" fill="#12408a"/>
+  <g fill="#c5d3e8">
+    <rect x="14" y="28" width="4" height="4" rx="1"/>
+    <rect x="20" y="28" width="4" height="4" rx="1"/>
+    <rect x="8" y="34" width="4" height="4" rx="1"/>
+    <rect x="14" y="34" width="4" height="4" rx="1"/>
+    <rect x="20" y="34" width="4" height="4" rx="1"/>
+    <rect x="8" y="40" width="4" height="3" rx="1"/>
+    <rect x="14" y="40" width="4" height="3" rx="1"/>
+  </g>
+  <rect x="8" y="28" width="4" height="4" rx="1" fill="#f59e0b"/>
+
+  <!-- Mirror axis -->
+  <line x1="32" y1="6" x2="32" y2="50" stroke="#8a94a6" stroke-width="1.5" stroke-dasharray="3 3" stroke-linecap="round"/>
+
+  <!-- Target: mirrored, lighter calendar page -->
+  <rect x="36" y="16" width="24" height="30" rx="4" fill="#eef4fd"/>
+  <path d="M36 20a4 4 0 0 1 4-4h16a4 4 0 0 1 4 4v4H36z" fill="#7fa8e6"/>
+  <rect x="36" y="16" width="24" height="30" rx="4" fill="none" stroke="#7fa8e6" stroke-width="2"/>
+  <rect x="41" y="12" width="3" height="7" rx="1.5" fill="#5b88cf"/>
+  <rect x="52" y="12" width="3" height="7" rx="1.5" fill="#5b88cf"/>
+  <g fill="#d3e0f5">
+    <rect x="46" y="28" width="4" height="4" rx="1"/>
+    <rect x="40" y="28" width="4" height="4" rx="1"/>
+    <rect x="52" y="34" width="4" height="4" rx="1"/>
+    <rect x="46" y="34" width="4" height="4" rx="1"/>
+    <rect x="40" y="34" width="4" height="4" rx="1"/>
+    <rect x="52" y="40" width="4" height="3" rx="1"/>
+    <rect x="46" y="40" width="4" height="3" rx="1"/>
+  </g>
+  <rect x="52" y="28" width="4" height="4" rx="1" fill="#f8c46a"/>
+
+  <!-- Direction: only from source to target -->
+  <path d="M12 55h36" stroke="#1f5fbf" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M45 50.5l5.5 4.5-5.5 4.5" fill="none" stroke="#1f5fbf" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

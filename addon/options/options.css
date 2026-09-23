@@ -1,0 +1,309 @@
+:root {
+  --bg: #f4f5f7;
+  --card: #ffffff;
+  --text: #1c1e21;
+  --muted: #5f6670;
+  --border: #d8dce1;
+  --accent: #0a66d6;
+  --accent-text: #ffffff;
+  --warn-bg: #fff4d6;
+  --warn-border: #e9b949;
+  --ok: #1a7f37;
+  --error: #c62828;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c1b22;
+    --card: #2b2a33;
+    --text: #e9e9ee;
+    --muted: #a8a8b3;
+    --border: #45444f;
+    --accent: #5aa2ff;
+    --accent-text: #0b1a2e;
+    --warn-bg: #3d3420;
+    --warn-border: #a88a3a;
+    --ok: #57c774;
+    --error: #ff7b72;
+    color-scheme: dark;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px 16px 96px;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.5 system-ui, "Segoe UI", sans-serif;
+}
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 0 0 4px;
+  font-size: 24px;
+}
+
+h2 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.lead {
+  margin: 0 0 20px;
+  color: var(--muted);
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+
+.hint,
+.meta {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 4px 0 0;
+}
+
+code {
+  font-size: 12px;
+  padding: 0 3px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--border) 45%, transparent);
+}
+
+/* Status */
+.status {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.status p {
+  margin: 2px 0 0;
+}
+
+#status-text.ok {
+  color: var(--ok);
+}
+
+#status-text.error {
+  color: var(--error);
+}
+
+/* Sources */
+.sources {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.sources li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-top: 1px solid var(--border);
+}
+
+.sources li:first-child {
+  border-top: none;
+}
+
+.sources li.selected {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.sources label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.sources .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sources .rank {
+  min-width: 1.5em;
+  font-weight: 600;
+  color: var(--accent);
+  text-align: right;
+}
+
+.sources .type {
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.sources button {
+  padding: 2px 8px;
+}
+
+.sources .missing .name {
+  color: var(--error);
+}
+
+/* Fields */
+.row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.field.small input {
+  width: 8em;
+}
+
+select,
+input[type="number"] {
+  font: inherit;
+  color: inherit;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 6px;
+  max-width: 100%;
+}
+
+.option {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-top: 14px;
+}
+
+.option input {
+  margin-top: 3px;
+}
+
+.option > span {
+  display: flex;
+  flex-direction: column;
+}
+
+.option.nested {
+  margin-left: 26px;
+}
+
+.warning {
+  margin: 12px 0 0;
+  padding: 8px 12px;
+  background: var(--warn-bg);
+  border: 1px solid var(--warn-border);
+  border-radius: 6px;
+}
+
+.always {
+  margin-top: 16px;
+}
+
+.always summary {
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.always ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* Buttons */
+button {
+  font: inherit;
+  color: inherit;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 5px 14px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+}
+
+.actions {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: 12px 0;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+
+#form-message {
+  margin: 0;
+  flex: 1;
+}
+
+#form-message.error {
+  color: var(--error);
+}
+
+#form-message.ok {
+  color: var(--ok);
+}
+
+/* About */
+.about {
+  margin-top: 16px;
+}
+
+.about summary {
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+#changelog h3 {
+  margin: 12px 0 4px;
+  font-size: 14px;
+}
+
+#changelog ul {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--muted);
+  font-size: 13px;
+}

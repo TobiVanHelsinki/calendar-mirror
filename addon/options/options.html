@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Calendar Mirror – Options</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Calendar Mirror</h1>
+      <p class="lead">
+        Mirrors events from one or more calendars one-way into a target calendar, e.g. from Exchange (Owl)
+        to Nextcloud, to see them on your phone. Changes in the sources are followed; nothing is ever written
+        back to the sources.
+      </p>
+    </header>
+
+    <section class="card status" aria-live="polite">
+      <div>
+        <h2>Last sync</h2>
+        <p id="status-time" class="meta">No sync yet</p>
+        <p id="status-text"></p>
+      </div>
+      <button type="button" id="sync-now">Sync now</button>
+    </section>
+
+    <form id="settings-form" novalidate>
+      <section class="card">
+        <h2>Sources</h2>
+        <p class="hint">
+          Calendars whose events are mirrored. The order sets the priority: if the same event exists in
+          several sources, the version from the higher source is mirrored.
+        </p>
+        <ul id="sources" class="sources"></ul>
+      </section>
+
+      <section class="card">
+        <h2>Target</h2>
+        <label class="field">
+          <span>Target calendar</span>
+          <select id="target"></select>
+        </label>
+        <p class="hint">
+          Ideally a separate, empty calendar used only for the mirror. The mirror creates copies with a UID
+          <code>calmirror-…</code> there and only changes or deletes such copies; other events in the target
+          are left alone. When you switch to another target, the copies in the previous target stay there
+          and have to be deleted manually.
+        </p>
+        <p id="reminder-warning" class="warning" hidden>
+          Reminders are enabled for the target calendar while reminders are being mirrored. Thunderbird will
+          then show every reminder twice (original and copy). To fix this, turn off “Show Reminders” in the
+          target calendar's properties. Your phone will still show the reminders.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Time range</h2>
+        <div class="row">
+          <label class="field small">
+            <span>Months back</span>
+            <input type="number" id="months-back" min="0" max="24" step="1">
+          </label>
+          <label class="field small">
+            <span>Months ahead</span>
+            <input type="number" id="months-ahead" min="1" max="36" step="1">
+          </label>
+        </div>
+        <p class="hint">
+          Events with at least one occurrence in this range are mirrored. Recurring events are mirrored as a
+          whole. Copies that fall out of the range are deleted from the target.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Duplicate events</h2>
+        <label class="option">
+          <input type="checkbox" id="dedupe">
+          <span>
+            <strong>Mirror events that exist in several sources only once</strong>
+            <span class="hint">
+              Two occurrences count as the same if their title (ignoring case) and start match. If an
+              occurrence is already provided by a higher-priority source, it is excluded from the copy. This is
+              an approximation: if the title differs slightly, a duplicate remains; two different events with
+              the same title and time become one.
+            </span>
+          </span>
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>Adjustments to the copies</h2>
+        <p class="hint">
+          These adjustments are based on observations with Exchange calendars via the Owl add-on. They may be
+          unnecessary or unsuitable for other sources. Changing them rewrites all copies on the next sync.
+        </p>
+
+        <label class="option">
+          <input type="checkbox" id="t-removeAttendees">
+          <span>
+            <strong>Remove organizer and attendees</strong>
+            <span class="hint">
+              Otherwise calendar servers (e.g. Nextcloud) treat the copy as an invitation and may send replies
+              or invitation emails to the attendees.
+            </span>
+          </span>
+        </label>
+
+        <label class="option">
+          <input type="checkbox" id="t-mirrorDescription">
+          <span>
+            <strong>Copy the description</strong>
+            <span class="hint">Without this option, the copy only contains title, time and location.</span>
+          </span>
+        </label>
+
+        <label class="option nested">
+          <input type="checkbox" id="t-removeHtmlDescription">
+          <span>
+            <strong>Plain text description only, drop the HTML version</strong>
+            <span class="hint">
+              Exchange additionally sends the description as HTML (ALTREP), often very large. Most calendars
+              only show the plain text anyway.
+            </span>
+          </span>
+        </label>
+
+        <label class="option">
+          <input type="checkbox" id="t-mirrorAlarms">
+          <span>
+            <strong>Copy reminders</strong>
+            <span class="hint">The reminders of the source are copied to the mirror.</span>
+          </span>
+        </label>
+
+        <label class="option">
+          <input type="checkbox" id="t-removeVendorFields">
+          <span>
+            <strong>Remove vendor-specific fields</strong>
+            <span class="hint">
+              Removes <code>X-MICROSOFT-*</code> (including Teams identifiers), <code>X-MOZ-*</code>
+              (Thunderbird internals such as snooze times) and <code>RELATED-TO</code> (references to events
+              in the source).
+            </span>
+          </span>
+        </label>
+
+        <label class="option">
+          <input type="checkbox" id="t-meetingLinkInLocation">
+          <span>
+            <strong>Put the join link of online meetings into the location</strong>
+            <span class="hint">
+              Looks for a join link of Teams, Zoom, Webex, Google Meet, Jitsi, DFNconf or GoTo in the
+              description (including its HTML version), the location and the URL field. If the location is
+              empty or just a placeholder like “Microsoft Teams Meeting”, it is replaced by the link;
+              otherwise the link is appended (“Room 2.13 | https://…”). This makes the meeting one tap away on
+              your phone. This is a heuristic: links of other services are not recognized, and with several
+              links the first matching one wins.
+            </span>
+          </span>
+        </label>
+
+        <label class="option">
+          <input type="checkbox" id="t-emptyTimezonesAsUtc">
+          <span>
+            <strong>Treat time zones without a definition as UTC</strong>
+            <span class="hint">
+              Owl delivers some times with a time zone that has no rules, such as
+              <code>tzone://Microsoft/Utc</code> or “(UTC+01:00) Amsterdam, Berlin, …”. These values are
+              actually UTC times, which is also how Thunderbird displays them. The copy stores them as real UTC
+              times so that servers and phones show them correctly.
+            </span>
+          </span>
+        </label>
+
+        <label class="option">
+          <input type="checkbox" id="t-mapWindowsTimezones">
+          <span>
+            <strong>Replace Windows time zone names with standard names</strong>
+            <span class="hint">
+              Exchange sometimes uses Windows names such as “W. Europe Standard Time”. The copy replaces them
+              with the matching standard name (here <code>Europe/Berlin</code>), which Nextcloud and Android
+              reliably know. Currently only a few Central European zones are known.
+            </span>
+          </span>
+        </label>
+
+        <details class="always">
+          <summary>What is always adjusted</summary>
+          <ul>
+            <li>The copy gets its own UID (<code>calmirror-…</code>) plus the fields
+              <code>X-MIRROR-SOURCE-UID</code>, <code>X-MIRROR-SOURCE-CALENDAR</code> and
+              <code>X-MIRROR-HASH</code>, which the mirror uses to match source and copy.</li>
+            <li><code>DTSTAMP</code>, <code>LAST-MODIFIED</code> and <code>CREATED</code> are dropped. Owl
+              rewrites them on every sync; otherwise every copy would be rewritten all the time.</li>
+            <li>An invalid “Show time as” value (<code>TRANSP</code>, delivered by Owl as
+              <code>unset</code>) becomes “Busy”.</li>
+          </ul>
+        </details>
+      </section>
+
+      <section class="card">
+        <h2>Sync</h2>
+        <div class="row">
+          <label class="field small">
+            <span>Full sync every … minutes</span>
+            <input type="number" id="resync-minutes" min="1" max="1440" step="1">
+          </label>
+          <label class="field small">
+            <span>No deleting after startup (minutes)</span>
+            <input type="number" id="grace-minutes" min="0" max="60" step="1">
+          </label>
+        </div>
+        <p class="hint">
+          Changes in the sources are followed immediately; the periodic full sync also moves the time range
+          along. After Thunderbird starts, some calendars (e.g. Owl) need a few minutes until all events are
+          loaded. During that time nothing is deleted in the target, only created and updated.
+        </p>
+      </section>
+
+      <div class="actions">
+        <p id="form-message" role="status"></p>
+        <button type="submit" id="save" class="primary">Save</button>
+      </div>
+    </form>
+
+    <section class="card about">
+      <h2>About</h2>
+      <p class="meta"><span id="version"></span></p>
+      <details id="changelog-box" hidden>
+        <summary>Changelog</summary>
+        <div id="changelog"></div>
+      </details>
+    </section>
+  </main>
+
+  <script src="../settings.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>
