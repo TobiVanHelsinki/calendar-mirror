@@ -4,12 +4,11 @@
 
 A Thunderbird add-on that mirrors events from one or more calendars **one-way** into another calendar.
 
-Typical use: your work calendar lives in Exchange and is connected to Thunderbird via the
-[Owl](https://addons.thunderbird.net/thunderbird/addon/owl-for-exchange/) add-on, but you want to see it on
-your Android phone. Calendar Mirror copies the events into a Nextcloud calendar (CalDAV), which your phone
-syncs with DAVx5.
+A Typical use: one of your calendars lives in Exchange and is connected to Thunderbird e.g. via the [Owl](https://addons.thunderbird.net/thunderbird/addon/owl-for-exchange/) add-on, but you want to see it on your Android phone. This addon copies the events into a Nextcloud calendar (CalDAV), which your phone syncs with DAVx5.
 
 Nothing is ever written back to the sources.
+
+But of course you can use this for every other scenario where you need calendars mirrored.
 
 ## Features
 
@@ -24,9 +23,7 @@ Nothing is ever written back to the sources.
 ## Requirements
 
 - Thunderbird 128 to 156
-- The add-on uses the draft [Calendar Experiment API](https://github.com/thunderbird/webext-experiments/tree/main/calendar).
-  Experiments can break with Thunderbird updates, so each version of the add-on declares the highest
-  Thunderbird version it has been tested with.
+- The add-on uses the draft [Calendar Experiment API](https://github.com/thunderbird/webext-experiments/tree/main/calendar). Experiments can break with Thunderbird updates, so each version of the add-on declares the highest Thunderbird version it has been tested with.
 
 ## Installation
 

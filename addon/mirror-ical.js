@@ -181,7 +181,7 @@ function findMeetingLink(block) {
       texts.push(unescapeText(prop.value));
     }
     // HTML version of the description (ALTREP as data: URL); contains the link even if the plain text shortens it
-    const altrep = prop.name == "DESCRIPTION" && paramValue(prop.params, "ALTREP");
+    const altrep = prop.name == "DESCRIPTION" ? paramValue(prop.params, "ALTREP") : null;
     if (altrep?.startsWith("data:")) {
       try {
         texts.push(decodeURIComponent(altrep.slice(altrep.indexOf(",") + 1)).replace(/&amp;/g, "&"));
