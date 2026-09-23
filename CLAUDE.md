@@ -19,8 +19,11 @@ this file records context, decisions and hard-won knowledge that is not obvious 
   (`msedge --headless --screenshot=… file.html`).
 - The user values honesty about assumptions: heuristics must be explained on the options page and be
   switchable. New optional behavior defaults to **off** unless agreed otherwise (e.g. meeting link).
-- Git: not initialized yet on purpose – the user wants a long-term test first. Planned repo:
-  `github.com/tobivanhelsinki/calendar-mirror`. When doing it: `git init`, `.gitignore` with `dist/`.
+- Git: local repository on branch `main`, no remote yet – the user pushes after a long-term test. Planned
+  remote: `github.com/tobivanhelsinki/calendar-mirror`. The repo has a **local** identity
+  (`TobiVanHelsinki <tobivanhelsinki@t-imperium.de>`); the global git config belongs to a private GitLab and
+  must not be used here or changed. `dist/` is ignored; XPIs go to GitHub releases. Commit only when asked.
+- The local folder is still named `calendermirror`; the user will rename it later.
 
 ## Goal and setup
 
@@ -157,8 +160,8 @@ publishing. That is why version + changelog are shown in the "About" section of 
   cases), series with exceptions/EXDATEs, reminders, whether Nextcloud accepts all copies via CalDAV
   (updates to existing items not tested against CalDAV yet).
 - Startup grace period only testable with the installed XPI (temporary add-ons vanish on restart).
-- Git repository + first commit after the long-term test; decide the license for the add-on's own code
-  (MPL-2.0 suggested, matching the experiment; MIT possible) and update README "License".
+- Before pushing to GitHub: decide the license for the add-on's own code (MPL-2.0 suggested, matching the
+  experiment; MIT possible), add a `LICENSE` file and update README "License".
 - Possible later ideas mentioned but not decided: localization (`_locales`, en + de), more Windows time zone
   mappings, a smaller 16 px icon variant, cleanup of copies in a previous target after switching targets,
   mirroring tasks.
